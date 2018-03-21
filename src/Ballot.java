@@ -9,7 +9,7 @@ public class Ballot {
     public Ballot(Queue<Candidate> ranking) {
         this.ranking = ranking;
         value = BigDecimal.ONE;
-        ranking.peek().addVotes(this);
+        getNextPreferred().addVotes(this);
     }
 
     public Candidate getNextPreferred() {
@@ -23,4 +23,5 @@ public class Ballot {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
 }

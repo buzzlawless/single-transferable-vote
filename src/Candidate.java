@@ -9,12 +9,11 @@ public class Candidate implements Comparable<Candidate> {
     private List<BigDecimal> roundVoteTotals;
     private List<Ballot> votes;
 
-    public Candidate(String name, Race race) {
+    public Candidate(String name) {
         this.name = name;
         voteTotal = BigDecimal.ZERO;
         roundVoteTotals = new ArrayList<>();
         votes = new ArrayList<>();
-        race.addCandidate(this);
     }
 
     public BigDecimal getVoteTotal() {

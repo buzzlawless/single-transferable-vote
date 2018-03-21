@@ -13,11 +13,16 @@ public class Sample {
 
     private static void sample1() {
         Race r1 = new Race("WikipediaPartyFoodExample", 3, 5);
-        Candidate oranges = new Candidate("Oranges", r1);
-        Candidate pears = new Candidate("Pears", r1);
-        Candidate chocolate = new Candidate("Chocolate", r1);
-        Candidate strawberries = new Candidate("Strawberries", r1);
-        Candidate sweets = new Candidate("Sweets", r1);
+        Candidate oranges = new Candidate("Oranges");
+        Candidate pears = new Candidate("Pears");
+        Candidate chocolate = new Candidate("Chocolate");
+        Candidate strawberries = new Candidate("Strawberries");
+        Candidate sweets = new Candidate("Sweets");
+        r1.addCandidate(oranges);
+        r1.addCandidate(pears);
+        r1.addCandidate(chocolate);
+        r1.addCandidate(strawberries);
+        r1.addCandidate(sweets);
         Queue<Candidate> ranking1 = new ArrayDeque<>();
         Queue<Candidate> ranking2 = new ArrayDeque<>();
         Queue<Candidate> ranking3 = new ArrayDeque<>();
@@ -95,7 +100,6 @@ public class Sample {
         Ballot b19 = new Ballot(ranking19);
         Ballot b20 = new Ballot(ranking20);
 
-
         VoteCounter vc = new VoteCounter(r1);
         vc.countVotes();
         r1.printWinners();
@@ -103,11 +107,16 @@ public class Sample {
 
     private static void sample2() {
         Race r1 = new Race("WikiPartyFoodTie", 3, 5);
-        Candidate oranges = new Candidate("Oranges", r1);
-        Candidate pears = new Candidate("Pears", r1);
-        Candidate chocolate = new Candidate("Chocolate", r1);
-        Candidate strawberries = new Candidate("Strawberries", r1);
-        Candidate sweets = new Candidate("Sweets", r1);
+        Candidate oranges = new Candidate("Oranges");
+        Candidate pears = new Candidate("Pears");
+        Candidate chocolate = new Candidate("Chocolate");
+        Candidate strawberries = new Candidate("Strawberries");
+        Candidate sweets = new Candidate("Sweets");
+        r1.addCandidate(oranges);
+        r1.addCandidate(pears);
+        r1.addCandidate(chocolate);
+        r1.addCandidate(strawberries);
+        r1.addCandidate(sweets);
         Queue<Candidate> ranking1 = new ArrayDeque<>();
         Queue<Candidate> ranking2 = new ArrayDeque<>();
         Queue<Candidate> ranking3 = new ArrayDeque<>();
@@ -193,11 +202,16 @@ public class Sample {
 
     private static void sample3() {
         Race r1 = new Race("WikiPartyFoodTieRandom", 3, 5);
-        Candidate oranges = new Candidate("Oranges", r1);
-        Candidate pears = new Candidate("Pears", r1);
-        Candidate chocolate = new Candidate("Chocolate", r1);
-        Candidate strawberries = new Candidate("Strawberries", r1);
-        Candidate sweets = new Candidate("Sweets", r1);
+        Candidate oranges = new Candidate("Oranges");
+        Candidate pears = new Candidate("Pears");
+        Candidate chocolate = new Candidate("Chocolate");
+        Candidate strawberries = new Candidate("Strawberries");
+        Candidate sweets = new Candidate("Sweets");
+        r1.addCandidate(oranges);
+        r1.addCandidate(pears);
+        r1.addCandidate(chocolate);
+        r1.addCandidate(strawberries);
+        r1.addCandidate(sweets);
         Queue<Candidate> ranking1 = new ArrayDeque<>();
         Queue<Candidate> ranking2 = new ArrayDeque<>();
         Queue<Candidate> ranking3 = new ArrayDeque<>();
@@ -283,11 +297,16 @@ public class Sample {
 
     private static void sample4() {
         Race r1 = new Race("WikiPartyFoodLotsOfBallots", 1, 5);
-        Candidate oranges = new Candidate("Oranges", r1);
-        Candidate pears = new Candidate("Pears", r1);
-        Candidate chocolate = new Candidate("Chocolate", r1);
-        Candidate strawberries = new Candidate("Strawberries", r1);
-        Candidate sweets = new Candidate("Sweets", r1);
+        Candidate oranges = new Candidate("Oranges");
+        Candidate pears = new Candidate("Pears");
+        Candidate chocolate = new Candidate("Chocolate");
+        Candidate strawberries = new Candidate("Strawberries");
+        Candidate sweets = new Candidate("Sweets");
+        r1.addCandidate(oranges);
+        r1.addCandidate(pears);
+        r1.addCandidate(chocolate);
+        r1.addCandidate(strawberries);
+        r1.addCandidate(sweets);
 
         for (int i = 0; i < 2000000; i++) {
             Queue<Candidate> rankingi = new ArrayDeque<>();
