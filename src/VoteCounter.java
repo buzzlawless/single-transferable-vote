@@ -134,10 +134,9 @@ public class VoteCounter {
             if (roundsAgo >= rounds) {
                 eliminateRandomCandidate(lastPlaceList);
                 return;
-            } else {
-                roundsAgo++;
-                lastPlaceList = getLastPlace(lastPlaceList, roundsAgo);
             }
+            roundsAgo++;
+            lastPlaceList = getLastPlace(lastPlaceList, roundsAgo);
         }
         eliminateCandidate(lastPlaceList.get(0));
     }

@@ -34,8 +34,7 @@ public class Candidate implements Comparable<Candidate> {
     }
 
     public void pushRoundVoteTotal() {
-        BigDecimal roundVoteTotal = BigDecimal.ZERO;
-        roundVoteTotal = roundVoteTotal.add(voteTotal);
+        BigDecimal roundVoteTotal = BigDecimal.ZERO.add(voteTotal);
         roundVoteTotals.add(roundVoteTotal);
     }
 
