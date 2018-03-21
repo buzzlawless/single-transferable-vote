@@ -1,6 +1,5 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Candidate implements Comparable<Candidate> {
@@ -14,7 +13,7 @@ public class Candidate implements Comparable<Candidate> {
         this.name = name;
         voteTotal = BigDecimal.ZERO;
         roundVoteTotals = new ArrayList<>();
-        votes = new LinkedList<>();
+        votes = new ArrayList<>();
         race.addCandidate(this);
     }
 

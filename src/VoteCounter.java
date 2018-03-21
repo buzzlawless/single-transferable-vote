@@ -1,13 +1,12 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-//TODO write unit tests with mocks to make sure proper methods are called, etc.
 public class VoteCounter {
 
     private Race race;
@@ -26,8 +25,7 @@ public class VoteCounter {
     }
 
     public void countVotes() {
-        int totalVotes = countFirstChoiceVotes();
-        calculateQuota(totalVotes);
+        calculateQuota();
         printStatus();
         if (checkForWinners()) return;
         while (remainingSeats > 0) {
@@ -42,25 +40,22 @@ public class VoteCounter {
         }
     }
 
-    private int countFirstChoiceVotes() {
-        int total = 0;
-        for (Ballot b : race.getBallots()) {
-            Candidate firstChoice = b.getNextPreferred();
-            if (firstChoice != null) {
-                firstChoice.addVotes(b);
-                total++;
-            }
-        }
-        return total;
-    }
-
-    private void calculateQuota(int totalVotes) {
+    private void calculateQuota() {
+        int totalVotes = countFirstChoiceVotes();
         //Integer division is intentional and used in Droop quota formula
         quota = new BigDecimal(
                 (totalVotes / (race.getSeats() + 1)) + 1
         );
         System.out.println("Quota: " + quota);
         System.out.println();
+    }
+
+    private int countFirstChoiceVotes() {
+        int total = 0;
+        for (Candidate c : race.getCandidates()) {
+            total += c.getVoteTotal().intValue();
+        }
+        return total;
     }
 
     private boolean checkForWinners() {
@@ -113,7 +108,7 @@ public class VoteCounter {
 
     private List<Candidate> getLastPlace(List<Candidate> candidates, int roundsAgo) {
         BigDecimal fewestVotes = new BigDecimal(Integer.MAX_VALUE);
-        List<Candidate> lastPlaceList = new LinkedList<>();
+        List<Candidate> lastPlaceList = new ArrayList<>();
         for (Candidate c : candidates) {
             if (running.contains(c)) {
                 BigDecimal candidateVoteTotal = c.getVoteTotal(roundsAgo);

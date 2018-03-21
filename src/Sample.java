@@ -1,8 +1,7 @@
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
-//TODO builders for everything
 public class Sample {
 
     public static void main(String[] args) {
@@ -13,32 +12,32 @@ public class Sample {
     }
 
     private static void sample1() {
-        Race r1 = new Race(3, "WikipediaPartyFoodExample");
+        Race r1 = new Race("WikipediaPartyFoodExample", 3, 5);
         Candidate oranges = new Candidate("Oranges", r1);
         Candidate pears = new Candidate("Pears", r1);
         Candidate chocolate = new Candidate("Chocolate", r1);
         Candidate strawberries = new Candidate("Strawberries", r1);
         Candidate sweets = new Candidate("Sweets", r1);
-        Queue<Candidate> ranking1 = new LinkedList<>();
-        Queue<Candidate> ranking2 = new LinkedList<>();
-        Queue<Candidate> ranking3 = new LinkedList<>();
-        Queue<Candidate> ranking4 = new LinkedList<>();
-        Queue<Candidate> ranking5 = new LinkedList<>();
-        Queue<Candidate> ranking6 = new LinkedList<>();
-        Queue<Candidate> ranking7 = new LinkedList<>();
-        Queue<Candidate> ranking8 = new LinkedList<>();
-        Queue<Candidate> ranking9 = new LinkedList<>();
-        Queue<Candidate> ranking10 = new LinkedList<>();
-        Queue<Candidate> ranking11 = new LinkedList<>();
-        Queue<Candidate> ranking12 = new LinkedList<>();
-        Queue<Candidate> ranking13 = new LinkedList<>();
-        Queue<Candidate> ranking14 = new LinkedList<>();
-        Queue<Candidate> ranking15 = new LinkedList<>();
-        Queue<Candidate> ranking16 = new LinkedList<>();
-        Queue<Candidate> ranking17 = new LinkedList<>();
-        Queue<Candidate> ranking18 = new LinkedList<>();
-        Queue<Candidate> ranking19 = new LinkedList<>();
-        Queue<Candidate> ranking20 = new LinkedList<>();
+        Queue<Candidate> ranking1 = new ArrayDeque<>();
+        Queue<Candidate> ranking2 = new ArrayDeque<>();
+        Queue<Candidate> ranking3 = new ArrayDeque<>();
+        Queue<Candidate> ranking4 = new ArrayDeque<>();
+        Queue<Candidate> ranking5 = new ArrayDeque<>();
+        Queue<Candidate> ranking6 = new ArrayDeque<>();
+        Queue<Candidate> ranking7 = new ArrayDeque<>();
+        Queue<Candidate> ranking8 = new ArrayDeque<>();
+        Queue<Candidate> ranking9 = new ArrayDeque<>();
+        Queue<Candidate> ranking10 = new ArrayDeque<>();
+        Queue<Candidate> ranking11 = new ArrayDeque<>();
+        Queue<Candidate> ranking12 = new ArrayDeque<>();
+        Queue<Candidate> ranking13 = new ArrayDeque<>();
+        Queue<Candidate> ranking14 = new ArrayDeque<>();
+        Queue<Candidate> ranking15 = new ArrayDeque<>();
+        Queue<Candidate> ranking16 = new ArrayDeque<>();
+        Queue<Candidate> ranking17 = new ArrayDeque<>();
+        Queue<Candidate> ranking18 = new ArrayDeque<>();
+        Queue<Candidate> ranking19 = new ArrayDeque<>();
+        Queue<Candidate> ranking20 = new ArrayDeque<>();
 
         ranking1.add(oranges);
         ranking2.add(oranges);
@@ -75,26 +74,26 @@ public class Sample {
         ranking19.add(strawberries);
         ranking20.add(sweets);
 
-        Ballot b1 = new Ballot(ranking1, r1);
-        Ballot b2 = new Ballot(ranking2, r1);
-        Ballot b3 = new Ballot(ranking3, r1);
-        Ballot b4 = new Ballot(ranking4, r1);
-        Ballot b5 = new Ballot(ranking5, r1);
-        Ballot b6 = new Ballot(ranking6, r1);
-        Ballot b7 = new Ballot(ranking7, r1);
-        Ballot b8 = new Ballot(ranking8, r1);
-        Ballot b9 = new Ballot(ranking9, r1);
-        Ballot b10 = new Ballot(ranking10, r1);
-        Ballot b11 = new Ballot(ranking11, r1);
-        Ballot b12 = new Ballot(ranking12, r1);
-        Ballot b13 = new Ballot(ranking13, r1);
-        Ballot b14 = new Ballot(ranking14, r1);
-        Ballot b15 = new Ballot(ranking15, r1);
-        Ballot b16 = new Ballot(ranking16, r1);
-        Ballot b17 = new Ballot(ranking17, r1);
-        Ballot b18 = new Ballot(ranking18, r1);
-        Ballot b19 = new Ballot(ranking19, r1);
-        Ballot b20 = new Ballot(ranking20, r1);
+        Ballot b1 = new Ballot(ranking1);
+        Ballot b2 = new Ballot(ranking2);
+        Ballot b3 = new Ballot(ranking3);
+        Ballot b4 = new Ballot(ranking4);
+        Ballot b5 = new Ballot(ranking5);
+        Ballot b6 = new Ballot(ranking6);
+        Ballot b7 = new Ballot(ranking7);
+        Ballot b8 = new Ballot(ranking8);
+        Ballot b9 = new Ballot(ranking9);
+        Ballot b10 = new Ballot(ranking10);
+        Ballot b11 = new Ballot(ranking11);
+        Ballot b12 = new Ballot(ranking12);
+        Ballot b13 = new Ballot(ranking13);
+        Ballot b14 = new Ballot(ranking14);
+        Ballot b15 = new Ballot(ranking15);
+        Ballot b16 = new Ballot(ranking16);
+        Ballot b17 = new Ballot(ranking17);
+        Ballot b18 = new Ballot(ranking18);
+        Ballot b19 = new Ballot(ranking19);
+        Ballot b20 = new Ballot(ranking20);
 
 
         VoteCounter vc = new VoteCounter(r1);
@@ -103,32 +102,32 @@ public class Sample {
     }
 
     private static void sample2() {
-        Race r1 = new Race(3, "WikiPartyFoodTie");
+        Race r1 = new Race("WikiPartyFoodTie", 3, 5);
         Candidate oranges = new Candidate("Oranges", r1);
         Candidate pears = new Candidate("Pears", r1);
         Candidate chocolate = new Candidate("Chocolate", r1);
         Candidate strawberries = new Candidate("Strawberries", r1);
         Candidate sweets = new Candidate("Sweets", r1);
-        Queue<Candidate> ranking1 = new LinkedList<>();
-        Queue<Candidate> ranking2 = new LinkedList<>();
-        Queue<Candidate> ranking3 = new LinkedList<>();
-        Queue<Candidate> ranking4 = new LinkedList<>();
-        Queue<Candidate> ranking5 = new LinkedList<>();
-        Queue<Candidate> ranking6 = new LinkedList<>();
-        Queue<Candidate> ranking7 = new LinkedList<>();
-        Queue<Candidate> ranking8 = new LinkedList<>();
-        Queue<Candidate> ranking9 = new LinkedList<>();
-        Queue<Candidate> ranking10 = new LinkedList<>();
-        Queue<Candidate> ranking11 = new LinkedList<>();
-        Queue<Candidate> ranking12 = new LinkedList<>();
-        Queue<Candidate> ranking13 = new LinkedList<>();
-        Queue<Candidate> ranking14 = new LinkedList<>();
-        Queue<Candidate> ranking15 = new LinkedList<>();
-        Queue<Candidate> ranking16 = new LinkedList<>();
-        Queue<Candidate> ranking17 = new LinkedList<>();
-        Queue<Candidate> ranking18 = new LinkedList<>();
-        Queue<Candidate> ranking19 = new LinkedList<>();
-        Queue<Candidate> ranking20 = new LinkedList<>();
+        Queue<Candidate> ranking1 = new ArrayDeque<>();
+        Queue<Candidate> ranking2 = new ArrayDeque<>();
+        Queue<Candidate> ranking3 = new ArrayDeque<>();
+        Queue<Candidate> ranking4 = new ArrayDeque<>();
+        Queue<Candidate> ranking5 = new ArrayDeque<>();
+        Queue<Candidate> ranking6 = new ArrayDeque<>();
+        Queue<Candidate> ranking7 = new ArrayDeque<>();
+        Queue<Candidate> ranking8 = new ArrayDeque<>();
+        Queue<Candidate> ranking9 = new ArrayDeque<>();
+        Queue<Candidate> ranking10 = new ArrayDeque<>();
+        Queue<Candidate> ranking11 = new ArrayDeque<>();
+        Queue<Candidate> ranking12 = new ArrayDeque<>();
+        Queue<Candidate> ranking13 = new ArrayDeque<>();
+        Queue<Candidate> ranking14 = new ArrayDeque<>();
+        Queue<Candidate> ranking15 = new ArrayDeque<>();
+        Queue<Candidate> ranking16 = new ArrayDeque<>();
+        Queue<Candidate> ranking17 = new ArrayDeque<>();
+        Queue<Candidate> ranking18 = new ArrayDeque<>();
+        Queue<Candidate> ranking19 = new ArrayDeque<>();
+        Queue<Candidate> ranking20 = new ArrayDeque<>();
 
         ranking1.add(oranges);
         ranking2.add(oranges);
@@ -165,26 +164,26 @@ public class Sample {
         ranking19.add(strawberries);
         ranking20.add(sweets);
 
-        Ballot b1 = new Ballot(ranking1, r1);
-        Ballot b2 = new Ballot(ranking2, r1);
-        Ballot b3 = new Ballot(ranking3, r1);
-        Ballot b4 = new Ballot(ranking4, r1);
-        Ballot b5 = new Ballot(ranking5, r1);
-        Ballot b6 = new Ballot(ranking6, r1);
-        Ballot b7 = new Ballot(ranking7, r1);
-        Ballot b8 = new Ballot(ranking8, r1);
-        Ballot b9 = new Ballot(ranking9, r1);
-        Ballot b10 = new Ballot(ranking10, r1);
-        Ballot b11 = new Ballot(ranking11, r1);
-        Ballot b12 = new Ballot(ranking12, r1);
-        Ballot b13 = new Ballot(ranking13, r1);
-        Ballot b14 = new Ballot(ranking14, r1);
-        Ballot b15 = new Ballot(ranking15, r1);
-        Ballot b16 = new Ballot(ranking16, r1);
-        Ballot b17 = new Ballot(ranking17, r1);
-        Ballot b18 = new Ballot(ranking18, r1);
-        Ballot b19 = new Ballot(ranking19, r1);
-        Ballot b20 = new Ballot(ranking20, r1);
+        Ballot b1 = new Ballot(ranking1);
+        Ballot b2 = new Ballot(ranking2);
+        Ballot b3 = new Ballot(ranking3);
+        Ballot b4 = new Ballot(ranking4);
+        Ballot b5 = new Ballot(ranking5);
+        Ballot b6 = new Ballot(ranking6);
+        Ballot b7 = new Ballot(ranking7);
+        Ballot b8 = new Ballot(ranking8);
+        Ballot b9 = new Ballot(ranking9);
+        Ballot b10 = new Ballot(ranking10);
+        Ballot b11 = new Ballot(ranking11);
+        Ballot b12 = new Ballot(ranking12);
+        Ballot b13 = new Ballot(ranking13);
+        Ballot b14 = new Ballot(ranking14);
+        Ballot b15 = new Ballot(ranking15);
+        Ballot b16 = new Ballot(ranking16);
+        Ballot b17 = new Ballot(ranking17);
+        Ballot b18 = new Ballot(ranking18);
+        Ballot b19 = new Ballot(ranking19);
+        Ballot b20 = new Ballot(ranking20);
 
 
         VoteCounter vc = new VoteCounter(r1);
@@ -193,32 +192,32 @@ public class Sample {
     }
 
     private static void sample3() {
-        Race r1 = new Race(3, "WikiPartyFoodTieRandom");
+        Race r1 = new Race("WikiPartyFoodTieRandom", 3, 5);
         Candidate oranges = new Candidate("Oranges", r1);
         Candidate pears = new Candidate("Pears", r1);
         Candidate chocolate = new Candidate("Chocolate", r1);
         Candidate strawberries = new Candidate("Strawberries", r1);
         Candidate sweets = new Candidate("Sweets", r1);
-        Queue<Candidate> ranking1 = new LinkedList<>();
-        Queue<Candidate> ranking2 = new LinkedList<>();
-        Queue<Candidate> ranking3 = new LinkedList<>();
-        Queue<Candidate> ranking4 = new LinkedList<>();
-        Queue<Candidate> ranking5 = new LinkedList<>();
-        Queue<Candidate> ranking6 = new LinkedList<>();
-        Queue<Candidate> ranking7 = new LinkedList<>();
-        Queue<Candidate> ranking8 = new LinkedList<>();
-        Queue<Candidate> ranking9 = new LinkedList<>();
-        Queue<Candidate> ranking10 = new LinkedList<>();
-        Queue<Candidate> ranking11 = new LinkedList<>();
-        Queue<Candidate> ranking12 = new LinkedList<>();
-        Queue<Candidate> ranking13 = new LinkedList<>();
-        Queue<Candidate> ranking14 = new LinkedList<>();
-        Queue<Candidate> ranking15 = new LinkedList<>();
-        Queue<Candidate> ranking16 = new LinkedList<>();
-        Queue<Candidate> ranking17 = new LinkedList<>();
-        Queue<Candidate> ranking18 = new LinkedList<>();
-        Queue<Candidate> ranking19 = new LinkedList<>();
-        Queue<Candidate> ranking20 = new LinkedList<>();
+        Queue<Candidate> ranking1 = new ArrayDeque<>();
+        Queue<Candidate> ranking2 = new ArrayDeque<>();
+        Queue<Candidate> ranking3 = new ArrayDeque<>();
+        Queue<Candidate> ranking4 = new ArrayDeque<>();
+        Queue<Candidate> ranking5 = new ArrayDeque<>();
+        Queue<Candidate> ranking6 = new ArrayDeque<>();
+        Queue<Candidate> ranking7 = new ArrayDeque<>();
+        Queue<Candidate> ranking8 = new ArrayDeque<>();
+        Queue<Candidate> ranking9 = new ArrayDeque<>();
+        Queue<Candidate> ranking10 = new ArrayDeque<>();
+        Queue<Candidate> ranking11 = new ArrayDeque<>();
+        Queue<Candidate> ranking12 = new ArrayDeque<>();
+        Queue<Candidate> ranking13 = new ArrayDeque<>();
+        Queue<Candidate> ranking14 = new ArrayDeque<>();
+        Queue<Candidate> ranking15 = new ArrayDeque<>();
+        Queue<Candidate> ranking16 = new ArrayDeque<>();
+        Queue<Candidate> ranking17 = new ArrayDeque<>();
+        Queue<Candidate> ranking18 = new ArrayDeque<>();
+        Queue<Candidate> ranking19 = new ArrayDeque<>();
+        Queue<Candidate> ranking20 = new ArrayDeque<>();
 
         ranking1.add(oranges);
         ranking2.add(oranges);
@@ -255,26 +254,26 @@ public class Sample {
         ranking19.add(strawberries);
         ranking20.add(sweets);
 
-        Ballot b1 = new Ballot(ranking1, r1);
-        Ballot b2 = new Ballot(ranking2, r1);
-        Ballot b3 = new Ballot(ranking3, r1);
-        Ballot b4 = new Ballot(ranking4, r1);
-        Ballot b5 = new Ballot(ranking5, r1);
-        Ballot b6 = new Ballot(ranking6, r1);
-        Ballot b7 = new Ballot(ranking7, r1);
-        Ballot b8 = new Ballot(ranking8, r1);
-        Ballot b9 = new Ballot(ranking9, r1);
-        Ballot b10 = new Ballot(ranking10, r1);
-        Ballot b11 = new Ballot(ranking11, r1);
-        Ballot b12 = new Ballot(ranking12, r1);
-        Ballot b13 = new Ballot(ranking13, r1);
-        Ballot b14 = new Ballot(ranking14, r1);
-        Ballot b15 = new Ballot(ranking15, r1);
-        Ballot b16 = new Ballot(ranking16, r1);
-        Ballot b17 = new Ballot(ranking17, r1);
-        Ballot b18 = new Ballot(ranking18, r1);
-        Ballot b19 = new Ballot(ranking19, r1);
-        Ballot b20 = new Ballot(ranking20, r1);
+        Ballot b1 = new Ballot(ranking1);
+        Ballot b2 = new Ballot(ranking2);
+        Ballot b3 = new Ballot(ranking3);
+        Ballot b4 = new Ballot(ranking4);
+        Ballot b5 = new Ballot(ranking5);
+        Ballot b6 = new Ballot(ranking6);
+        Ballot b7 = new Ballot(ranking7);
+        Ballot b8 = new Ballot(ranking8);
+        Ballot b9 = new Ballot(ranking9);
+        Ballot b10 = new Ballot(ranking10);
+        Ballot b11 = new Ballot(ranking11);
+        Ballot b12 = new Ballot(ranking12);
+        Ballot b13 = new Ballot(ranking13);
+        Ballot b14 = new Ballot(ranking14);
+        Ballot b15 = new Ballot(ranking15);
+        Ballot b16 = new Ballot(ranking16);
+        Ballot b17 = new Ballot(ranking17);
+        Ballot b18 = new Ballot(ranking18);
+        Ballot b19 = new Ballot(ranking19);
+        Ballot b20 = new Ballot(ranking20);
 
 
         VoteCounter vc = new VoteCounter(r1);
@@ -283,15 +282,15 @@ public class Sample {
     }
 
     private static void sample4() {
-        Race r1 = new Race(1, "WikiPartyFoodLotsOfBallots");
+        Race r1 = new Race("WikiPartyFoodLotsOfBallots", 1, 5);
         Candidate oranges = new Candidate("Oranges", r1);
         Candidate pears = new Candidate("Pears", r1);
         Candidate chocolate = new Candidate("Chocolate", r1);
         Candidate strawberries = new Candidate("Strawberries", r1);
         Candidate sweets = new Candidate("Sweets", r1);
 
-        for (int i = 0; i < 200000; i++) {
-            Queue<Candidate> rankingi = new LinkedList<>();
+        for (int i = 0; i < 2000000; i++) {
+            Queue<Candidate> rankingi = new ArrayDeque<>();
             int min = 0;
             int max = r1.getCandidates().size() - 1;
             int randomIndex = ThreadLocalRandom.current().nextInt(min, max + 1);
@@ -301,7 +300,7 @@ public class Sample {
             if (randomIndex2 != randomIndex) rankingi.add(r1.getCandidates().get(randomIndex2));
             if (randomIndex3 != randomIndex2 && randomIndex3 != randomIndex)
                 rankingi.add(r1.getCandidates().get(randomIndex3));
-            Ballot bi = new Ballot(rankingi, r1);
+            Ballot bi = new Ballot(rankingi);
         }
 
         VoteCounter vc = new VoteCounter(r1);
