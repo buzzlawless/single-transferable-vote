@@ -3,6 +3,8 @@ package edu.utexas.stv.election;
 import java.math.BigDecimal;
 import java.util.Queue;
 
+import static edu.utexas.stv.computation.ElectionCalculator.mc;
+
 public class Ballot {
 
     private Queue<Candidate> ranking;
@@ -10,7 +12,7 @@ public class Ballot {
 
     public Ballot(Queue<Candidate> ranking) {
         this.ranking = ranking;
-        value = BigDecimal.ONE;
+        value = new BigDecimal(1, mc);
     }
 
     public Candidate getNextPreferred() {

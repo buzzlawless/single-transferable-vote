@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CandidateTest {
 
@@ -20,14 +20,14 @@ public class CandidateTest {
     @Test
     public void getVoteTotalStartStateTest() {
         c.pushRoundVoteTotal();
-        assertEquals(BigDecimal.ZERO, c.getVoteTotal(0));
+        assertThat(c.getVoteTotal(0)).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
     public void getVoteTotal0RoundsAgoTest() {
         c.addVotes(new Ballot(new ArrayDeque<>()));
         c.pushRoundVoteTotal();
-        assertEquals(BigDecimal.ONE, c.getVoteTotal(0));
+        assertThat(c.getVoteTotal(0)).isEqualTo(BigDecimal.ONE);
     }
 
     @Test
@@ -35,30 +35,33 @@ public class CandidateTest {
         c.pushRoundVoteTotal();
         c.addVotes(new Ballot(new ArrayDeque<>()));
         c.pushRoundVoteTotal();
-        assertEquals(BigDecimal.ZERO, c.getVoteTotal(1));
+        assertThat(c.getVoteTotal(1)).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
     public void addVotesTest() {
-        Ballot b = new Ballot(new ArrayDeque<>());
-        c.addVotes(b);
-        assertEquals(BigDecimal.ONE, c.getVoteTotal());
-        assertEquals(1, c.getVotes().size());
-        assertEquals(b, c.getVotes().get(0));
+        Ballot b1 = new Ballot(new ArrayDeque<>());
+        Ballot b2 = new Ballot(new ArrayDeque<>());
+        Ballot b3 = new Ballot(new ArrayDeque<>());
+        c.addVotes(b1);
+        c.addVotes(b2);
+        c.addVotes(b3);
+        assertThat(c.getVoteTotal()).isEqualTo(new BigDecimal(3));
+        assertThat(c.getVotes()).containsExactly(b1, b2, b3);
     }
 
     @Test
     public void subtractVotesTest() {
         Ballot b = new Ballot(new ArrayDeque<>());
         c.subtractVotes(b);
-        assertEquals(new BigDecimal(-1), c.getVoteTotal());
+        assertThat(c.getVoteTotal()).isEqualTo(new BigDecimal(-1));
     }
 
     @Test
     public void pushRoundVoteTotalTest() {
         c.addVotes(new Ballot(new ArrayDeque<>()));
         c.pushRoundVoteTotal();
-        assertEquals(BigDecimal.ONE, c.getVoteTotal());
+        assertThat(c.getVoteTotal()).isEqualTo(BigDecimal.ONE);
     }
 
 }
