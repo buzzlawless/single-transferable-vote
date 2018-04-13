@@ -21,6 +21,7 @@ public class ElectionCalculatorTest {
     private Candidate strawberries;
     private Candidate sweets;
     private List<Candidate> candidates;
+    private List<Ballot> ballots;
 
     @BeforeEach
     public void setup() {
@@ -35,6 +36,7 @@ public class ElectionCalculatorTest {
         candidates.add(chocolate);
         candidates.add(strawberries);
         candidates.add(sweets);
+        ballots = new ArrayList<>();
     }
 
     @Test
@@ -61,7 +63,6 @@ public class ElectionCalculatorTest {
         ranking5.add(strawberries);
         ranking6.add(sweets);
 
-        List<Ballot> ballots = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
 
@@ -112,7 +113,6 @@ public class ElectionCalculatorTest {
         ranking6.add(strawberries);
         ranking7.add(sweets);
 
-        List<Ballot> ballots = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
 
@@ -156,7 +156,6 @@ public class ElectionCalculatorTest {
         ranking4.add(strawberries);
         ranking5.add(sweets);
 
-        List<Ballot> ballots = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
         }
@@ -193,7 +192,6 @@ public class ElectionCalculatorTest {
         ranking3.add(strawberries);
         ranking4.add(sweets);
 
-        List<Ballot> ballots = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
         }
@@ -212,6 +210,66 @@ public class ElectionCalculatorTest {
         assertThat(winners).containsSequence(chocolate, pears);
         assertThat(winners).isSubsetOf(chocolate, pears, strawberries, sweets);
         assertThat(winners).hasSize(3);
+    }
+
+    @Test
+    public void calculateWinnersSingleWinnerTest() {
+//      O  P C  St Sw
+//      9  1 10 0  0 <-- Sw, St eliminated. P last place, eliminated, distribute surplus
+//      9  0 11 0  0 <-- C wins
+        Queue<Candidate> ranking1 = new ArrayDeque<>();
+        Queue<Candidate> ranking2 = new ArrayDeque<>();
+        Queue<Candidate> ranking3 = new ArrayDeque<>();
+
+        ranking1.add(chocolate);
+        ranking2.add(oranges);
+        ranking3.add(pears);
+        ranking3.add(chocolate);
+
+        for (int i = 0; i < 10; i++) {
+            ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
+        }
+        for (int i = 0; i < 9; i++) {
+            ballots.add(new Ballot(new ArrayDeque<>(ranking2)));
+        }
+        ballots.add(new Ballot(new ArrayDeque<>(ranking3)));
+
+        Race r = new Race("Single Winner Race", 1, ballots, candidates);
+        ElectionCalculator ec = new ElectionCalculator(r);
+        assertThat(ec.calculateWinners()).containsExactly(chocolate);
+    }
+
+    @Test
+    public void calculateWinnersMultipleSurplusTest() {
+//      O P C St Sw
+//      8 4 7 1  0 <-- O and C win, O surplus distributed first
+//      6 6 7 1  0 <-- P wins
+        Queue<Candidate> ranking1 = new ArrayDeque<>();
+        Queue<Candidate> ranking2 = new ArrayDeque<>();
+        Queue<Candidate> ranking3 = new ArrayDeque<>();
+        Queue<Candidate> ranking4 = new ArrayDeque<>();
+
+        ranking1.add(chocolate);
+        ranking1.add(strawberries);
+        ranking2.add(oranges);
+        ranking2.add(pears);
+        ranking3.add(pears);
+        ranking4.add(pears);
+
+        for (int i = 0; i < 7; i++) {
+            ballots.add(new Ballot(new ArrayDeque<>(ranking1)));
+        }
+        for (int i = 0; i < 8; i++) {
+            ballots.add(new Ballot(new ArrayDeque<>(ranking2)));
+        }
+        for (int i = 0; i < 4; i++) {
+            ballots.add(new Ballot(new ArrayDeque<>(ranking3)));
+        }
+        ballots.add(new Ballot(new ArrayDeque<>(ranking4)));
+
+        Race r = new Race("Multiple Surplus", 3, ballots, candidates);
+        ElectionCalculator ec = new ElectionCalculator(r);
+        assertThat(ec.calculateWinners()).containsExactly(oranges, chocolate, pears);
     }
 
 }

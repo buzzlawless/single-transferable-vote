@@ -62,9 +62,4 @@ public class Candidate implements Comparable<Candidate> {
         return voteTotal.compareTo(other.getVoteTotal());
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
 }
