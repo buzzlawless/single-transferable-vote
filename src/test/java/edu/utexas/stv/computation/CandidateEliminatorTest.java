@@ -45,6 +45,7 @@ public class CandidateEliminatorTest {
         verify(c2Spy, times(1)).getVoteTotal(0);
         verify(c1Spy, times(1)).notRunning();
         verify(c1Spy, times(1)).getVotes();
+        verify(c1Spy, times(1)).getName();
         verifyNoMoreInteractions(c1Spy);
         verifyNoMoreInteractions(c2Spy);
 
@@ -67,6 +68,8 @@ public class CandidateEliminatorTest {
         verify(c2Spy, atMost(1)).notRunning();
         verify(c1Spy, atMost(1)).getVotes();
         verify(c2Spy, atMost(1)).getVotes();
+        verify(c1Spy, atMost(1)).getName();
+        verify(c2Spy, atMost(1)).getName();
         verifyNoMoreInteractions(c1Spy);
         verifyNoMoreInteractions(c2Spy);
 
@@ -91,6 +94,7 @@ public class CandidateEliminatorTest {
         verify(c2Spy, times(1)).getVoteTotal(1);
         verify(c1Spy, times(1)).notRunning();
         verify(c1Spy, times(1)).getVotes();
+        verify(c1Spy, times(1)).getName();
         verifyNoMoreInteractions(c1Spy);
         verifyNoMoreInteractions(c2Spy);
 
@@ -110,6 +114,7 @@ public class CandidateEliminatorTest {
         verify(c2Spy, times(1)).getVoteTotal(0);
         verify(c2Spy, times(1)).notRunning();
         verify(c2Spy, times(1)).getVotes();
+        verify(c2Spy, times(1)).getName();
         verifyNoMoreInteractions(c1Spy);
         verifyNoMoreInteractions(c2Spy);
 

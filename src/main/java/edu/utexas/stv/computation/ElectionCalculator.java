@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -35,10 +36,14 @@ public class ElectionCalculator {
         this.runningCandidates = race.getCandidates().size();
         rounds = -1;
         winners = new ArrayList<>(race.getSeats());
-        haveSurplus = new PriorityQueue<>();
+        haveSurplus = new PriorityQueue<>(Collections.reverseOrder());
     }
 
     public List<Candidate> calculateWinners() {
+        System.out.println("Calculating election for " + race.getPosition());
+        System.out.println(String.format("%d candidates running for %d seat(s)", race.getCandidates().size(),
+                race.getSeats()));
+        System.out.println(race.getBallots().size() + " total ballots cast");
         int totalVotes = countFirstChoiceVotes(race.getBallots());
         quota = calculateQuota(totalVotes, race.getSeats());
         checkForWinners();
@@ -46,16 +51,37 @@ public class ElectionCalculator {
             while (!haveSurplus.isEmpty()) {
                 distributeSurplus(haveSurplus, quota);
                 checkForWinners();
+                if (noMoreSeats()) {
+                    printWinners(winners);
+                    return winners;
+                }
             }
             eliminateLastPlace(race.getCandidates(), rounds);
             runningCandidates--;
-            if (remainingSeats == runningCandidates) {
-                declareRunningAsWinners();
+            if (noMoreSeats()) {
+                printWinners(winners);
                 return winners;
             }
             checkForWinners();
         }
+        printWinners(winners);
         return winners;
+    }
+
+    private void printWinners(List<Candidate> winners) {
+        System.out.println("Winners: ");
+        for (Candidate winner : winners) {
+            System.out.println(winner.getName());
+        }
+    }
+
+    private boolean noMoreSeats() {
+        if (remainingSeats == runningCandidates) {
+            System.out.println("The number of remaining seats equals the number of remaining candidates. " +
+                    "All remaining candidates declared winners.");
+            declareRunningAsWinners();
+            return true;
+        } else return remainingSeats == 0;
     }
 
     private void checkForWinners() {

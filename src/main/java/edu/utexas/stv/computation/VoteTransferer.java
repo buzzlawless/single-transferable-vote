@@ -14,6 +14,7 @@ public class VoteTransferer {
 
     public static void distributeSurplus(PriorityQueue<Candidate> haveSurplus, BigDecimal quota) {
         Candidate hasLargestSurplus = haveSurplus.poll();
+        System.out.println("Distributing surplus votes for " + hasLargestSurplus.getName());
         BigDecimal totalVotes = hasLargestSurplus.getVoteTotal();
         BigDecimal surplus = totalVotes.subtract(quota, mc);
         BigDecimal transferValue = surplus.divide(totalVotes, mc);

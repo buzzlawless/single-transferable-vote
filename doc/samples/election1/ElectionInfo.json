@@ -1,0 +1,12 @@
+[
+    {
+        "Position": "President",
+        "Candidates": [
+            "Adam",
+            "Beth",
+            "DJ",
+            "Claude"
+        ],
+        "Seats": 1
+    }
+]

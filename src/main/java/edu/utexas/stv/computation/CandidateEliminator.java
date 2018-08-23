@@ -18,7 +18,11 @@ public class CandidateEliminator {
         List<Candidate> lastPlaceList = getLastPlace(candidates, roundsAgo);
         while (lastPlaceList.size() > 1) {
             //Tied for last
+            System.out.println("Tie for last place. " +
+                    "Using last place candidates' vote totals from previous round as tiebreaker.");
             if (roundsAgo >= rounds) {
+                System.out.println("Last place candidates have been tied all previous rounds. " +
+                        "Eliminating one at random.");
                 eliminateRandomCandidate(lastPlaceList);
                 return;
             }
@@ -54,6 +58,8 @@ public class CandidateEliminator {
     }
 
     private static void eliminateCandidate(Candidate toEliminate) {
+        System.out.println(String.format("Eliminated %s for being in last place. Transferring votes to next preferred.",
+                toEliminate.getName()));
         toEliminate.notRunning();
         for (Ballot b : toEliminate.getVotes()) {
             transferVotes(toEliminate, b);

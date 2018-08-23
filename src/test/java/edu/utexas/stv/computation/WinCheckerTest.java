@@ -9,7 +9,11 @@ import java.util.List;
 
 import static edu.utexas.stv.computation.WinChecker.getWinners;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 public class WinCheckerTest {
 
@@ -50,12 +54,15 @@ public class WinCheckerTest {
 
         assertThat(getWinners(candidates, quota)).containsExactly(runningExceedQuota, runningEqualQuota);
 
-        verify(runningExceedQuota, times(1)).getVoteTotal();
+        verify(runningExceedQuota, times(2)).getVoteTotal();
         verify(runningExceedQuota, times(1)).isRunning();
-        verify(runningEqualQuota, times(1)).getVoteTotal();
+        verify(runningExceedQuota, times(2)).getName();
+        verify(runningEqualQuota, times(2)).getVoteTotal();
         verify(runningEqualQuota, times(1)).isRunning();
-        verify(runningBelowQuota, times(1)).getVoteTotal();
+        verify(runningEqualQuota, times(2)).getName();
+        verify(runningBelowQuota, times(2)).getVoteTotal();
         verify(runningBelowQuota, times(1)).isRunning();
+        verify(runningBelowQuota, times(1)).getName();
 
         verify(notRunningExceedQuota, times(1)).isRunning();
         verify(notRunningEqualQuota, times(1)).isRunning();

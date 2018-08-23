@@ -40,6 +40,7 @@ public class VoteTransfererTest {
         haveSurplus.add(hasSurplus);
         distributeSurplus(haveSurplus, quota);
 
+        verify(hasSurplus, times(1)).getName();
         verify(hasSurplus, times(1)).getVoteTotal();
         verify(hasSurplus, times(1)).getVotes();
         verify(ballotToTransfer, times(1)).getValue();

@@ -1,0 +1,23 @@
+[
+    {
+        "Position": "Chancellor of Student Government",
+        "Candidates": [
+            "Queen Elizabeth II",
+            "Carlos Dutil",
+            "William McRaven",
+            "Vin Diesel",
+            "Bevo Longhorn"
+        ],
+        "Seats": 1
+    },
+    {
+        "Position": "Student Government Jester",
+        "Candidates": [
+            "Bill Powers",
+            "Sang Carnillo",
+            "Mathew Granvil",
+            "Nguyet Montey"
+        ],
+        "Seats": 1
+    }
+]
