@@ -47,21 +47,17 @@ public class ElectionCalculator {
         int totalVotes = countFirstChoiceVotes(race.getBallots());
         quota = calculateQuota(totalVotes, race.getSeats());
         checkForWinners();
-        while (remainingSeats > 0) {
+        while (areOpenSeats()) {
             while (!haveSurplus.isEmpty()) {
                 distributeSurplus(haveSurplus, quota);
                 checkForWinners();
-                if (noMoreSeats()) {
+                if (!areOpenSeats()) {
                     printWinners(winners);
                     return winners;
                 }
             }
             eliminateLastPlace(race.getCandidates(), rounds);
             runningCandidates--;
-            if (noMoreSeats()) {
-                printWinners(winners);
-                return winners;
-            }
             checkForWinners();
         }
         printWinners(winners);
@@ -75,13 +71,14 @@ public class ElectionCalculator {
         }
     }
 
-    private boolean noMoreSeats() {
+    private boolean areOpenSeats() {
         if (remainingSeats == runningCandidates) {
             System.out.println("The number of remaining seats equals the number of remaining candidates. " +
                     "All remaining candidates declared winners.");
             declareRunningAsWinners();
-            return true;
-        } else return remainingSeats == 0;
+            return false;
+        }
+        return remainingSeats > 0;
     }
 
     private void checkForWinners() {
