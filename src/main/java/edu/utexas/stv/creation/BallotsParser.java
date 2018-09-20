@@ -36,7 +36,7 @@ public class BallotsParser {
             e.printStackTrace();
             System.exit(1);
         }
-        while (records.hasNext() && !records.next().get(0).equals("SubmissionId")) {
+        while (records.hasNext() && !records.next().get(0).contains("SubmissionId")) {
             // Skip CSVRecords that are just metadata, not ballots
         }
         // Parse CSVRecords containing ballots. Add those ballots to races.
