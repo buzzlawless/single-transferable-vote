@@ -7,15 +7,15 @@ import java.math.BigDecimal;
 import static edu.utexas.stv.computation.QuotaCalculator.calculateQuota;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class QuotaCalculatorTest {
+class QuotaCalculatorTest {
 
     @Test
-    public void calculateQuotaMultiSeatTest() {
+    void calculateQuotaMultiSeatTest() {
         assertThat(calculateQuota(1000, 8)).isEqualTo(new BigDecimal(112));
     }
 
     @Test
-    public void calculateQuotaSingleSeatTest() {
+    void calculateQuotaSingleSeatTest() {
         assertThat(calculateQuota(1000, 1)).isEqualTo(new BigDecimal(501));
     }
 }

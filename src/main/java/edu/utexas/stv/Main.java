@@ -10,16 +10,16 @@ import static edu.utexas.stv.creation.ElectionInfoParser.parseElectionInfo;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         if (args.length < 2) {
             System.out.println("Too few arguments");
             System.exit(1);
         }
-        String electionInfoFilename = args[0];
-        String ballotsFilename = args[1];
-        List<Race> races = parseElectionInfo(electionInfoFilename);
+        final String electionInfoFilename = args[0];
+        final String ballotsFilename = args[1];
+        final List<Race> races = parseElectionInfo(electionInfoFilename);
         addBallotsToRaces(ballotsFilename, races);
-        for (Race r : races) {
+        for (final Race r : races) {
             new ElectionCalculator(r).calculateWinners();
         }
     }

@@ -2,15 +2,16 @@ package edu.utexas.stv.election;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Race {
 
-    private int seats;
-    private String position;
-    private List<Candidate> candidates;
-    private List<Ballot> ballots;
+    private final int seats;
+    private final String position;
+    private final Set<Candidate> candidates;
+    private final List<Ballot> ballots;
 
-    public Race(String position, int seats, List<Candidate> candidates) {
+    public Race(final String position, final int seats, final Set<Candidate> candidates) {
         this.position = position;
         this.seats = seats;
         this.candidates = candidates;
@@ -25,11 +26,11 @@ public class Race {
         return ballots;
     }
 
-    public List<Candidate> getCandidates() {
+    public Set<Candidate> getCandidates() {
         return candidates;
     }
 
-    public void addBallot(Ballot ballot) {
+    public void addBallot(final Ballot ballot) {
         ballots.add(ballot);
     }
 

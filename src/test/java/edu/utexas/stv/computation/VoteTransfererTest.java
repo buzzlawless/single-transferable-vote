@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 import static edu.utexas.stv.computation.ElectionCalculator.mc;
 import static edu.utexas.stv.computation.VoteTransferer.distributeSurplus;
@@ -22,23 +24,25 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-public class VoteTransfererTest {
+class VoteTransfererTest {
 
     @Test
-    public void distributeSurplusTest() {
-        BigDecimal quota = new BigDecimal(50, mc);
-        BigDecimal voteTotal = new BigDecimal(75, mc);
+    void distributeSurplusTest() {
+        final BigDecimal quota = new BigDecimal(50, mc);
+        final BigDecimal voteTotal = new BigDecimal(75, mc);
 
-        Ballot ballotToTransfer = mock(Ballot.class);
+        final Ballot ballotToTransfer = mock(Ballot.class);
         when(ballotToTransfer.getValue()).thenReturn(new BigDecimal(1, mc));
-        List<Ballot> ballots = new ArrayList<>();
+        final List<Ballot> ballots = new ArrayList<>();
         ballots.add(ballotToTransfer);
-        Candidate hasSurplus = mock(Candidate.class);
+        final Candidate hasSurplus = mock(Candidate.class);
         when(hasSurplus.getVoteTotal()).thenReturn(voteTotal);
         when(hasSurplus.getVotes()).thenReturn(ballots);
-        PriorityQueue<Candidate> haveSurplus = new PriorityQueue<>();
+        final PriorityQueue<Candidate> haveSurplus = new PriorityQueue<>();
         haveSurplus.add(hasSurplus);
-        distributeSurplus(haveSurplus, quota);
+        final Set<Candidate> running = new HashSet<>();
+        running.add(hasSurplus);
+        distributeSurplus(haveSurplus, quota, running);
 
         verify(hasSurplus, times(1)).getName();
         verify(hasSurplus, times(1)).getVoteTotal();
@@ -54,21 +58,19 @@ public class VoteTransfererTest {
     }
 
     @Test
-    public void transferVotesTest() {
-        Candidate firstChoiceEliminated = mock(Candidate.class);
-        Candidate secondChoiceNotRunning = mock(Candidate.class);
-        when(secondChoiceNotRunning.isRunning()).thenReturn(false);
-        Candidate thirdChoiceRunning = mock(Candidate.class);
-        when(thirdChoiceRunning.isRunning()).thenReturn(true);
-        Queue<Candidate> ranking = new ArrayDeque<>();
+    void transferVotesTest() {
+        final Set<Candidate> running = new HashSet<>();
+        final Candidate firstChoiceEliminated = mock(Candidate.class);
+        final Candidate secondChoiceNotRunning = mock(Candidate.class);
+        final Candidate thirdChoiceRunning = mock(Candidate.class);
+        running.add(thirdChoiceRunning);
+        final Queue<Candidate> ranking = new ArrayDeque<>();
         ranking.add(secondChoiceNotRunning);
         ranking.add(thirdChoiceRunning);
-        Ballot b = new Ballot(ranking);
-        transferVotes(firstChoiceEliminated, b);
+        final Ballot b = new Ballot(ranking);
+        transferVotes(firstChoiceEliminated, b, running);
 
         verify(firstChoiceEliminated, times(1)).subtractVotes(b);
-        verify(secondChoiceNotRunning, times(1)).isRunning();
-        verify(thirdChoiceRunning, times(1)).isRunning();
         verify(thirdChoiceRunning, times(1)).addVotes(b);
 
         verifyNoMoreInteractions(firstChoiceEliminated);
@@ -77,20 +79,20 @@ public class VoteTransfererTest {
     }
 
     @Test
-    public void getSurplusWinnersTest() {
-        BigDecimal quota = new BigDecimal(100, mc);
-        BigDecimal greaterThanQuota = quota.add(new BigDecimal(50, mc));
-        BigDecimal lessThanQuota = quota.subtract(new BigDecimal(50, mc));
+    void getSurplusWinnersTest() {
+        final BigDecimal quota = new BigDecimal(100, mc);
+        final BigDecimal greaterThanQuota = quota.add(new BigDecimal(50, mc));
+        final BigDecimal lessThanQuota = quota.subtract(new BigDecimal(50, mc));
 
-        Candidate exceedQuota = mock(Candidate.class);
-        Candidate equalQuota = mock(Candidate.class);
-        Candidate belowQuota = mock(Candidate.class);
+        final Candidate exceedQuota = mock(Candidate.class);
+        final Candidate equalQuota = mock(Candidate.class);
+        final Candidate belowQuota = mock(Candidate.class);
 
         when(exceedQuota.getVoteTotal()).thenReturn(greaterThanQuota);
         when(equalQuota.getVoteTotal()).thenReturn(quota);
         when(belowQuota.getVoteTotal()).thenReturn(lessThanQuota);
 
-        List<Candidate> candidates = new ArrayList<>();
+        final Set<Candidate> candidates = new HashSet<>();
         candidates.add(exceedQuota);
         candidates.add(equalQuota);
         candidates.add(belowQuota);

@@ -19,11 +19,11 @@ import java.util.Queue;
 
 public class BallotsParser {
 
-    public static void addBallotsToRaces(String filename, List<Race> races) {
+    public static void addBallotsToRaces(final String filename, final List<Race> races) {
         Reader in = null;
         try {
             in = new FileReader(filename);
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             System.out.println("Could not find " + filename);
             e.printStackTrace();
             System.exit(1);
@@ -31,7 +31,7 @@ public class BallotsParser {
         Iterator<CSVRecord> records = null;
         try {
             records = CSVFormat.RFC4180.parse(in).iterator();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println(filename + " not properly formatted to RFC4180 CSV");
             e.printStackTrace();
             System.exit(1);
@@ -40,26 +40,26 @@ public class BallotsParser {
             // Skip CSVRecords that are just metadata, not ballots
         }
         // Parse CSVRecords containing ballots. Add those ballots to races.
-        Map<String, Candidate> nameToCandidates = getNameToCandidateMap(races);
+        final Map<String, Candidate> nameToCandidates = getNameToCandidateMap(races);
         while (records.hasNext()) {
             parseRecordForBallots(records.next(), races, nameToCandidates);
         }
     }
 
-    private static void parseRecordForBallots(CSVRecord record, List<Race> races,
-                                              Map<String, Candidate> nameToCandidate) {
+    private static void parseRecordForBallots(final CSVRecord record, final List<Race> races,
+                                              final Map<String, Candidate> nameToCandidate) {
         int offset = 1;
-        for (Race race : races) {
+        for (final Race race : races) {
             race.addBallot(getBallotFromRecord(race, record, offset, nameToCandidate));
             offset += race.getCandidates().size();
         }
     }
 
-    private static Ballot getBallotFromRecord(Race race, CSVRecord record, int offset,
-                                              Map<String, Candidate> nameToCandidate) {
-        Queue<Candidate> ranking = new ArrayDeque<>();
+    private static Ballot getBallotFromRecord(final Race race, final CSVRecord record, final int offset,
+                                              final Map<String, Candidate> nameToCandidate) {
+        final Queue<Candidate> ranking = new ArrayDeque<>();
         for (int i = 0; i < race.getCandidates().size(); i++) {
-            String candidateName = record.get(i + offset);
+            final String candidateName = record.get(i + offset);
             if ("".equals(candidateName)) {
                 continue;
             }
@@ -73,10 +73,10 @@ public class BallotsParser {
         return new Ballot(ranking);
     }
 
-    private static Map<String, Candidate> getNameToCandidateMap(List<Race> races) {
-        Map<String, Candidate> nameToCandidate = new HashMap<>();
-        for (Race r : races) {
-            for (Candidate c : r.getCandidates()) {
+    private static Map<String, Candidate> getNameToCandidateMap(final List<Race> races) {
+        final Map<String, Candidate> nameToCandidate = new HashMap<>();
+        for (final Race r : races) {
+            for (final Candidate c : r.getCandidates()) {
                 nameToCandidate.put(c.getName(), c);
             }
         }

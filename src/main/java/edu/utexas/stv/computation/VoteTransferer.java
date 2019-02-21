@@ -4,51 +4,46 @@ import edu.utexas.stv.election.Ballot;
 import edu.utexas.stv.election.Candidate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static edu.utexas.stv.computation.ElectionCalculator.mc;
 
-public class VoteTransferer {
+class VoteTransferer {
 
-    public static void distributeSurplus(PriorityQueue<Candidate> haveSurplus, BigDecimal quota) {
-        Candidate hasLargestSurplus = haveSurplus.poll();
+    static List<Candidate> getSurplusWinners(final Set<Candidate> candidates, final BigDecimal quota) {
+        return candidates.stream()
+                .filter(c -> c.getVoteTotal().compareTo(quota) > 0)
+                .collect(Collectors.toList());
+    }
+
+    static void distributeSurplus(final PriorityQueue<Candidate> haveSurplus, final BigDecimal quota,
+                                  final Set<Candidate> candidates) {
+        final Candidate hasLargestSurplus = haveSurplus.poll();
         System.out.println("Distributing surplus votes for " + hasLargestSurplus.getName());
-        BigDecimal totalVotes = hasLargestSurplus.getVoteTotal();
-        BigDecimal surplus = totalVotes.subtract(quota, mc);
-        BigDecimal transferValue = surplus.divide(totalVotes, mc);
-        for (Ballot b : hasLargestSurplus.getVotes()) {
+        final BigDecimal totalVotes = hasLargestSurplus.getVoteTotal();
+        final BigDecimal surplus = totalVotes.subtract(quota, mc);
+        final BigDecimal transferValue = surplus.divide(totalVotes, mc);
+        for (final Ballot b : hasLargestSurplus.getVotes()) {
             b.setValue(transferValue.multiply(b.getValue(), mc));
-            transferVotes(hasLargestSurplus, b);
+            transferVotes(hasLargestSurplus, b, candidates);
         }
     }
 
-    public static void transferVotes(Candidate from, Ballot ballot) {
+    static void transferVotes(final Candidate from, final Ballot ballot, final Set<Candidate> candidates) {
         from.subtractVotes(ballot);
-        Candidate nextPreferred = getNextEligiblePreferred(ballot);
-        if (nextPreferred != null) {
-            nextPreferred.addVotes(ballot);
-        }
+        getNextEligiblePreferred(ballot, candidates).ifPresent(next -> next.addVotes(ballot));
     }
 
-    public static List<Candidate> getSurplusWinners(List<Candidate> candidates, BigDecimal quota) {
-        List<Candidate> haveSurplus = new ArrayList<>();
-        for (Candidate c : candidates) {
-            if (c.getVoteTotal().compareTo(quota) > 0) {
-                haveSurplus.add(c);
-            }
-        }
-        return haveSurplus;
-    }
-
-    private static Candidate getNextEligiblePreferred(Ballot ballot) {
-        Candidate nextPreferred = ballot.getNextPreferred();
-        while (nextPreferred != null && !nextPreferred.isRunning()) {
+    private static Optional<Candidate> getNextEligiblePreferred(final Ballot ballot, final Set<Candidate> candidates) {
+        Optional<Candidate> nextPreferred = ballot.getNextPreferred();
+        while (nextPreferred.isPresent() && !candidates.contains(nextPreferred.get())) {
             nextPreferred = ballot.getNextPreferred();
         }
         return nextPreferred;
     }
-
 
 }

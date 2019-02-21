@@ -8,43 +8,36 @@ import static edu.utexas.stv.computation.ElectionCalculator.mc;
 
 public class Candidate implements Comparable<Candidate> {
 
-    private String name;
-    private boolean running;
+    private final String name;
     private BigDecimal voteTotal;
-    private List<BigDecimal> roundVoteTotals;
-    private List<Ballot> votes;
+    private final List<BigDecimal> roundVoteTotals;
+    private final List<Ballot> votes;
 
-    public Candidate(String name) {
+    public Candidate(final String name) {
         this.name = name;
-        running = true;
         voteTotal = new BigDecimal(0, mc);
         roundVoteTotals = new ArrayList<>();
         votes = new ArrayList<>();
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
-    public void notRunning() {
-        running = false;
     }
 
     public BigDecimal getVoteTotal() {
         return voteTotal;
     }
 
-    public BigDecimal getVoteTotal(int roundsAgo) {
+    private BigDecimal getVoteTotal(final int roundsAgo) {
+        if (roundsAgo >= roundVoteTotals.size()) {
+            throw new IndexOutOfBoundsException();
+        }
         return roundVoteTotals.get(roundVoteTotals.size() - 1 - roundsAgo);
     }
 
-    public void addVotes(Ballot voteToAdd) {
+    public void addVotes(final Ballot voteToAdd) {
         votes.add(voteToAdd);
         voteTotal = voteTotal.add(voteToAdd.getValue(), mc);
 
     }
 
-    public void subtractVotes(Ballot voteToSubtract) {
+    public void subtractVotes(final Ballot voteToSubtract) {
         voteTotal = voteTotal.subtract(voteToSubtract.getValue(), mc);
     }
 
@@ -62,8 +55,16 @@ public class Candidate implements Comparable<Candidate> {
     }
 
     @Override
-    public int compareTo(Candidate other) {
-        return voteTotal.compareTo(other.getVoteTotal());
+    public int compareTo(final Candidate other) {
+        assert roundVoteTotals.size() == other.roundVoteTotals.size();
+        // Compare candidates' vote totals, referring to the previous round if tied
+        for (int i = 0; i < roundVoteTotals.size(); i++) {
+            final int comparison = getVoteTotal(i).compareTo(other.getVoteTotal(i));
+            if (comparison != 0) {
+                return comparison;
+            }
+        }
+        return 0;
     }
 
 }

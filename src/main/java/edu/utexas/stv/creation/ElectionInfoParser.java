@@ -9,26 +9,28 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ElectionInfoParser {
 
-    public static List<Race> parseElectionInfo(String pathname) {
-        File file = new File(pathname);
+    public static List<Race> parseElectionInfo(final String pathname) {
+        final File file = new File(pathname);
         String jsonStr = null;
         try {
             jsonStr = FileUtils.readFileToString(file);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println("Failed to read " + pathname);
             e.printStackTrace();
             System.exit(1);
         }
-        JSONArray electionInfo = new JSONArray(jsonStr);
-        List<Race> races = new ArrayList<>();
+        final JSONArray electionInfo = new JSONArray(jsonStr);
+        final List<Race> races = new ArrayList<>();
         for (int i = 0; i < electionInfo.length(); i++) {
-            JSONObject raceInfo = electionInfo.getJSONObject(i);
-            JSONArray candidateNames = raceInfo.getJSONArray("Candidates");
-            List<Candidate> candidates = new ArrayList<>();
+            final JSONObject raceInfo = electionInfo.getJSONObject(i);
+            final JSONArray candidateNames = raceInfo.getJSONArray("Candidates");
+            final Set<Candidate> candidates = new HashSet<>();
             for (int j = 0; j < candidateNames.length(); j++) {
                 candidates.add(new Candidate(candidateNames.getString(j)));
             }
