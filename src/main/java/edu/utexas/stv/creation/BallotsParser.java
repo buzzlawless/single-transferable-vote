@@ -13,9 +13,11 @@ import java.io.Reader;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+import java.util.Optional;
+import java.util.Set;
 
 public class BallotsParser {
 
@@ -50,14 +52,14 @@ public class BallotsParser {
                                               final Map<String, Candidate> nameToCandidate) {
         int offset = 1;
         for (final Race race : races) {
-            race.addBallot(getBallotFromRecord(race, record, offset, nameToCandidate));
+            getBallotFromRecord(race, record, offset, nameToCandidate).ifPresent(race::addBallot);
             offset += race.getCandidates().size();
         }
     }
 
-    private static Ballot getBallotFromRecord(final Race race, final CSVRecord record, final int offset,
-                                              final Map<String, Candidate> nameToCandidate) {
-        final Queue<Candidate> ranking = new ArrayDeque<>();
+    private static Optional<Ballot> getBallotFromRecord(final Race race, final CSVRecord record, final int offset,
+                                                        final Map<String, Candidate> nameToCandidate) {
+        final Set<Candidate> ranking = new LinkedHashSet<>(race.getCandidates().size());
         for (int i = 0; i < race.getCandidates().size(); i++) {
             final String candidateName = record.get(i + offset);
             if ("".equals(candidateName)) {
@@ -70,7 +72,10 @@ public class BallotsParser {
             }
             ranking.add(nameToCandidate.get(candidateName));
         }
-        return new Ballot(ranking);
+        if (ranking.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new Ballot(new ArrayDeque<>(ranking)));
     }
 
     private static Map<String, Candidate> getNameToCandidateMap(final List<Race> races) {
