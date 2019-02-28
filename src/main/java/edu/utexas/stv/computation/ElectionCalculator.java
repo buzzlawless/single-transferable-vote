@@ -73,9 +73,9 @@ public class ElectionCalculator {
             System.out.println("No open seats remain.");
             return false;
         }
-        if (remainingSeats == race.getCandidates().size()) {
-            System.out.println("The number of remaining seats equals the number of remaining candidates. " +
-                    "All remaining candidates declared winners.");
+        if (remainingSeats >= race.getCandidates().size()) {
+            System.out.println("The number of remaining seats is greater than or equal to the number of remaining " +
+                    "candidates. All remaining candidates declared winners.");
             winners.addAll(race.getCandidates());
             return false;
         }
